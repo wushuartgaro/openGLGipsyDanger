@@ -1,0 +1,11 @@
+﻿  main.cpp
+c:\users\hard-\documents\visual studio 2017\projects\opengl\assignment\assignment\main.cpp(90): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\hard-\documents\visual studio 2017\projects\opengl\assignment\assignment\main.cpp(91): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\hard-\documents\visual studio 2017\projects\opengl\assignment\assignment\main.cpp(387): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\hard-\documents\visual studio 2017\projects\opengl\assignment\assignment\main.cpp(388): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\hard-\documents\visual studio 2017\projects\opengl\assignment\assignment\main.cpp(1330): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
+c:\users\hard-\documents\visual studio 2017\projects\opengl\assignment\assignment\main.cpp(1334): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
+c:\users\hard-\documents\visual studio 2017\projects\opengl\assignment\assignment\main.cpp(1490): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\hard-\documents\visual studio 2017\projects\opengl\assignment\assignment\main.cpp(1873): warning C4305: '+=': truncation from 'double' to 'float'
+  Assignment.vcxproj -> C:\Users\Hard-\Documents\Visual Studio 2017\Projects\OpenGL\Assignment\Debug\Assignment.exe
+  Assignment.vcxproj -> C:\Users\Hard-\Documents\Visual Studio 2017\Projects\OpenGL\Assignment\Debug\Assignment.pdb (Partial PDB)
