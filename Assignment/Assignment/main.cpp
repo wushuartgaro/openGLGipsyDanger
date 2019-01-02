@@ -38,6 +38,8 @@ float rightLegAngle1 = 180.0f, rightLegAngle2 = 180.0f, rightLegAngle3 = 180.0f;
 float leftArmAngle1 = 180.0f, leftArmAngle2 = 180.0f, leftArmAngle3 = 180.0f;
 float rightArmAngle1 = 180.0f, rightArmAngle2 = 180.0f, rightArmAngle3 = 180.0f;
 
+float bodyJointAngle = 0.0f, upperBodyJointAngle = 0.0f;
+
 float leftLegAxis[3][3] = { {1.0f,0.0f,0.0f},{ 1.0f,0.0f,0.0f },{ 1.0f,0.0f,0.0f } };
 float rightLegAxis[3][3] = { { 1.0f,0.0f,0.0f },{ 1.0f,0.0f,0.0f },{ 1.0f,0.0f,0.0f } };
 
@@ -396,7 +398,7 @@ void drawBone(GLUquadricObj *var) {
 	glPushMatrix();
 	{
 		glColor3f(139 / 255.0f, 119 / 255.0f, 114 / 255.0f);
-		gluCylinder(var, radius/12, radius/12, boneLength, 6, stacks);
+		gluCylinder(var, radius/25, radius/25, boneLength, 6, stacks);
 	}
 	glPopMatrix();
 	
@@ -405,7 +407,7 @@ void drawBone(GLUquadricObj *var) {
 void drawBallJoint(GLUquadricObj *var) {
 	glPushMatrix();
 	{
-		gluSphere(var, radius / 10.0f, slices, stacks);
+		gluSphere(var, radius / 22.0f, slices, stacks);
 	}
 	glPopMatrix();
 }
@@ -413,7 +415,7 @@ void drawBallJoint(GLUquadricObj *var) {
 void drawHingeJoint(GLUquadricObj *var) {
 	glPushMatrix();
 	{
-		gluSphere(var, radius / 10.0f, slices, stacks);
+		gluSphere(var, radius / 22.0f, slices, stacks);
 	}
 	glPopMatrix();
 }
@@ -426,6 +428,62 @@ void drawCover() {
 	}
 	glPopMatrix();
 	
+}
+
+void drawFloatHingeJointArmor(GLUquadricObj *var) {
+
+	glPushMatrix(); {
+		glTranslatef(-0.17f, 0.0f, 0.0f);
+		glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
+		glRotatef(45.0f, 0.0f, 0.0f, 1.0f);
+		glColor3f(139 / 255.0f, 119 / 255.0f, 114 / 255.0f);
+		glPushMatrix();
+		{
+			glTranslatef(0.0f, 0.0f, 0.35f);
+			gluCylinder(var, radius / 7.0f, radius / 7.0f, 0.025f, 8, stacks);
+			glPushMatrix();
+			{
+				glTranslatef(0.0f, 0.0f, 0.025f);
+				gluDisk(var, 0.0f, radius / 7.0f, 8, stacks);
+				glPushMatrix();
+				{
+					glTranslatef(0.0f, 0.0f, -0.025f);
+					gluDisk(var, 0.0f, radius / 7.0f, 8, stacks);
+				}
+				glPopMatrix();
+			}
+			glPopMatrix();
+		}
+		glPopMatrix();
+	}
+	glPopMatrix();
+
+}
+
+void drawHingeJointArmor(GLUquadricObj *var) {
+	//draw Hinge Joint Screw
+	glPushMatrix();
+	{
+		glTranslatef(-0.17f, 0.0f, 0.0f);
+		glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
+		glRotatef(45.0f, 0.0f, 0.0f, 1.0f);
+		glColor3f(139 / 255.0f, 119 / 255.0f, 114 / 255.0f);
+		gluCylinder(var, radius / 7.0f, radius / 7.0f, 0.30f, 8, stacks);
+		glPushMatrix();
+		{
+			glTranslatef(0.0f, 0.0f, 0.30f);
+			gluDisk(var, 0.0f, radius / 7.0f, 8, stacks);
+			glPushMatrix();
+			{
+				glTranslatef(0.0f, 0.0f, -0.30f);
+				gluDisk(var, 0.0f, radius / 7.0f, 8, stacks);
+			}
+			glPopMatrix();
+		}
+		glPopMatrix();
+
+	}
+	glPopMatrix();
 }
 
 void drawChestArmor(GLUquadricObj *var) {
@@ -559,7 +617,23 @@ void drawBackBooster(GLUquadricObj *var) {
 			gluCylinder(var, radius / 6.5f, radius / 5.8f, 0.45f, 7, stacks * 2);
 		}
 		glPopMatrix();
-
+		
+		glPushMatrix();
+		{
+			glTranslatef(-0.1f, 0.15f, 0.50f);
+			glRotatef(10.0f, 1.0f, 0.0f, 0.0f);
+			glRotatef(-15.0f, 0.0f, 1.0f, 0.0f);
+			glScalef(0.1f, 0.01f, 0.15f);
+			drawCover();
+		}
+		glPopMatrix();
+		glPushMatrix(); {
+			glTranslatef(0.0f, 0.15f, 0.60f);
+			glRotatef(80.0f, 0.0f, 1.0f, 0.0f);
+			glScalef(0.05f, 0.01f, 0.15f);
+			drawCover();
+		}
+		glPopMatrix();
 	}
 	glPopMatrix();
 }
@@ -717,12 +791,7 @@ void drawBackArmor(GLUquadricObj *var) {
 			glPopMatrix();
 		}
 		glPopMatrix();
-		//draw back vertebrae
-		glPushMatrix();
-		{
-			drawBackVertebrae();
-		}
-		glPopMatrix();
+		
 	}
 	glPopMatrix();
 }
@@ -922,16 +991,16 @@ void drawFrontVertebraeBone() {
 	glPopMatrix();
 }
 
-void drawFrontVertebrae() {
+void drawFrontArmor() {
 	glPushMatrix();
 	{
 		glTranslatef(0.0f, -0.3f, 1.0f);
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 5; i++) {
 			glTranslatef(0.0f, 0.0f, -0.15f);
 			glScalef(1.0f - (i / 90.0f), 1.0f, 1.0f);
 			drawFrontVertebraeBone();
 		}
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 3; i++) {
 			drawWaistCover();
 			glPushMatrix();
 			{
@@ -1026,7 +1095,7 @@ void drawHips(GLUquadricObj *var) {
 				glTranslatef(0.40f, 0.53f, 0.40f);
 				glRotatef(-25.0f, 0.0f, 0.0f, 1.0f);
 				glRotatef(70.0f, 0.0f, 1.0f, 0.0f);
-				glScalef(0.10f, 0.08f, 0.25f);
+				glScalef(0.10f, 0.08f, 0.30f);
 				drawCover();
 			}
 			glPopMatrix();
@@ -1036,7 +1105,7 @@ void drawHips(GLUquadricObj *var) {
 				glTranslatef(0.40f, 0.53f, 0.40f);
 				glRotatef(-25.0f, 0.0f, 0.0f, 1.0f);
 				glRotatef(70.0f, 0.0f, 1.0f, 0.0f);
-				glScalef(0.10f, 0.08f, 0.25f);
+				glScalef(0.10f, 0.08f, 0.30f);
 				drawCover();
 			}
 			glPopMatrix();
@@ -1048,25 +1117,42 @@ void drawHips(GLUquadricObj *var) {
 			glPushMatrix();
 			{
 				glTranslatef(0.0f, 0.55f, -0.2f);
-				glRotatef(-30.0f, 1.0f, 0.0f, 0.0f);
-				glScalef(0.25f, 0.10f, 0.20f);
+				glRotatef(-15.0f, 1.0f, 0.0f, 0.0f);
+				glScalef(0.40f, 0.25f, 0.25f);
 				drawCover();
 			}
 			glPopMatrix();
 			glPushMatrix();
 			{
-				glTranslatef(-0.25f, 0.55f, 0.1f);
-				glRotatef(15.0f, 1.0f, 0.0f, 0.0f);
-				glScalef(0.10f, 0.05f, 0.20f);
+				glTranslatef(-0.40f, 0.55f, 0.1f);
+				glRotatef(35.0f, 1.0f, 0.0f, 0.0f);
+				glScalef(0.15f, 0.05f, 0.20f);
 				drawCover();
 			}
 			glPopMatrix();
 			glPushMatrix();
 			{
 				glScalef(-1.0f, 1.0f, 1.0f);
-				glTranslatef(-0.25f, 0.55f, 0.1f);
-				glRotatef(15.0f, 1.0f, 0.0f, 0.0f);
-				glScalef(0.10f, 0.05f, 0.20f);
+				glTranslatef(-0.40f, 0.55f, 0.1f);
+				glRotatef(35.0f, 1.0f, 0.0f, 0.0f);
+				glScalef(0.15f, 0.05f, 0.20f);
+				drawCover();
+			}
+			glPopMatrix();
+			glPushMatrix();
+			{
+				glTranslatef(-0.40f, 0.25f, 0.2f);
+				glRotatef(-70.0f, 1.0f, 0.0f, 0.0f);
+				glScalef(0.10f, 0.05f, 0.10f);
+				drawCover();
+			}
+			glPopMatrix();
+			glPushMatrix();
+			{
+				glScalef(-1.0f, 1.0f, 1.0f);
+				glTranslatef(-0.40f, 0.25f, 0.2f);
+				glRotatef(-70.0f, 1.0f, 0.0f, 0.0f);
+				glScalef(0.10f, 0.05f, 0.10f);
 				drawCover();
 			}
 			glPopMatrix();
@@ -1080,62 +1166,92 @@ void drawSpine(GLUquadricObj *var) {
 	glPushMatrix();
 	{
 		glScalef(0.9f, 0.9f, 0.9f);
-		//draw upper backbone
-		glPushMatrix();
-		{
-			glTranslatef(0.0f, 0.0f, 1.0f);
-			drawBallJoint(var);
-			boneLength = 0.9f;
-			drawBone(var);
-		}
-		glPopMatrix();
-		drawChest(var);
-		//draw lower backbone
-		glPushMatrix();
-		{
-			boneLength = 1.0f;
-			drawBone(var);
-		}
-		glPopMatrix();
-		drawFrontVertebrae();
-		boneLength = 2.0f;
-		//draw rib cage
-		glPushMatrix();
-		{
-			glTranslatef(0.0f, 0.0f, 1.0f);
-			//glRotatef(90.0f,1.0f,0.0f,0.0f);
-			glScalef(1.2f,0.5f,1.0f);
-			glColor3f(139 / 255.0f, 119 / 255.0f, 114 / 255.0f);
-			gluCylinder(var, radius / 2.0f, radius / 1.4f, 0.8f, slices, stacks);
-			glPushMatrix(); {
-				glTranslatef(0.0f, -0.2f, 0.0f);
-				glScalef(1.0f, 1.1f, 1.0f);
-				gluCylinder(var, radius / 2.0f, radius / 1.5f, 0.5f, slices, stacks);
-			}
-			glPopMatrix();	
-		}
-		glPopMatrix();
 		glPushMatrix(); {
-			glTranslatef(-1.0f, 0.0f, 1.8f);
-			glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
-			glColor3f(139 / 255.0f, 119 / 255.0f, 114 / 255.0f);
-			gluCylinder(var, radius / 5.5f, radius / 5.5f, 2.0f, slices, stacks);
-			gluDisk(var, 0.0f, radius / 5.5f, slices, stacks);
-			glPushMatrix();
-			{
-				glTranslatef(0.0f, 0.0f, 2.0f);
-				gluDisk(var, 0.0f, radius / 5.5f, slices, stacks);
+			glRotatef(bodyJointAngle, 1.0f, 0.0f, 0.0f);
+			drawBallJoint(var);
+			drawHingeJointArmor(var);
+			glPushMatrix(); {
+				glTranslatef(0.0f, 0.0f, 1.0f);
+				glRotatef(upperBodyJointAngle, 1.0f, 0.0f, 0.0f);
+				drawBallJoint(var);
+				drawHingeJointArmor(var);
+				glTranslatef(0.0f, 0.0f, -1.0f);
+				//draw upper backbone
+				glPushMatrix();
+				{
+					glTranslatef(0.0f, 0.0f, 1.0f);
+					boneLength = 0.9f;
+					drawBone(var);
+				}
+				glPopMatrix();
+				drawChest(var);
+				//draw rib cage
+				glPushMatrix();
+				{
+					glTranslatef(0.0f, 0.0f, 1.0f);
+					//glRotatef(90.0f,1.0f,0.0f,0.0f);
+					glScalef(1.2f, 0.5f, 1.0f);
+					glColor3f(139 / 255.0f, 119 / 255.0f, 114 / 255.0f);
+					gluCylinder(var, radius / 2.0f, radius / 1.4f, 0.8f, slices, stacks);
+					glPushMatrix(); {
+						glTranslatef(0.0f, -0.2f, 0.0f);
+						glScalef(1.0f, 1.1f, 1.0f);
+						gluCylinder(var, radius / 2.0f, radius / 1.5f, 0.5f, slices, stacks);
+					}
+					glPopMatrix();
+				}
+				glPopMatrix();
+				glPushMatrix(); {
+					glTranslatef(-1.0f, 0.0f, 1.8f);
+					glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
+					glColor3f(139 / 255.0f, 119 / 255.0f, 114 / 255.0f);
+					gluCylinder(var, radius / 5.5f, radius / 5.5f, 2.0f, slices, stacks);
+					gluDisk(var, 0.0f, radius / 5.5f, slices, stacks);
+					glPushMatrix();
+					{
+						glTranslatef(0.0f, 0.0f, 2.0f);
+						gluDisk(var, 0.0f, radius / 5.5f, slices, stacks);
+					}
+					glPopMatrix();
+
+				}
+				glPopMatrix();
+				//draw clavicle
+				glPushMatrix();
+				{
+					glTranslatef(1.0f, 0.0f, 1.9f);
+					glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
+					drawBone(var);
+				}
+				glPopMatrix();
+				//draw back vertebrae
+				glPushMatrix();
+				{
+					glTranslatef(0.0f, -0.2f, 0.0f);
+					drawBackVertebrae();
+				}
+				glPopMatrix();
 			}
 			glPopMatrix();
 			
-		}
-		glPopMatrix();
-		//draw clavicle
-		glPushMatrix();
-		{
-			glTranslatef(1.0f, 0.0f, 1.9f);
-			glRotatef(-90.0f,0.0f,1.0f,0.0f);
-			drawBone(var);
+			//draw lower backbone
+			glPushMatrix();
+			{
+
+				boneLength = 1.0f;
+				drawBone(var);
+			}
+			glPopMatrix();
+			//draw front abdomen
+			glPushMatrix();
+			{
+				glTranslatef(0.0f, 0.0f, 0.1f);
+				glScalef(0.9f, 0.9f, 0.9f);
+				drawFrontArmor();
+			}
+			glPopMatrix();
+		
+			boneLength = 2.0f;
 		}
 		glPopMatrix();
 		//draw hips
@@ -1149,22 +1265,87 @@ void drawSpine(GLUquadricObj *var) {
 		}
 		glPopMatrix();
 		drawHips(var);
+		//draw hips details
+		glPushMatrix();
+		{
+			glPushMatrix();
+			{
+				glTranslatef(0.30f, 0.0f, 0.25f);
+				glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
+				glColor3f(139 / 255.0f, 119 / 255.0f, 114 / 255.0f);
+				gluCylinder(var, radius / 7.0f, radius / 7.0f, 0.6f, 8, stacks);
+				gluDisk(var, 0.0f, radius / 7.0f, 8, stacks);
+				glPushMatrix();
+				{
+					glTranslatef(0.0f, 0.0f, 0.6f);
+					gluDisk(var, 0.0f, radius / 7.0f, 8, stacks);
+				}
+				glPopMatrix();
+			}
+			glPopMatrix();
+			glPushMatrix();
+			{
+				glTranslatef(0.0f, 0.0f, -0.1f);
+				glScalef(0.2f,0.1f,0.30f);
+				drawFilledCube();
+			}
+			glPopMatrix();
+		}
+		glPopMatrix();
+		
 	}
 	glPopMatrix();
 	
 }
 
+void drawFingerArmor(GLUquadricObj *var) {
+	glPushMatrix(); {
+		glColor3f(97 / 255.0f, 99 / 255.0f, 122 / 255.0f);
+		glTranslatef(-0.15f,0.0f,0.0f);
+		glRotatef(45.0f,0.0f,0.0f,1.0f);
+		gluCylinder(var,radius/5.5f,radius/5.5f,0.50f,4,stacks);
+		glPushMatrix();
+		{
+			glTranslatef(0.0f, 0.0f, 0.5f);
+			gluDisk(var,0.0f, radius / 5.5f,4,stacks);
+			glPushMatrix();
+			{
+				glTranslatef(0.0f, 0.0f, -0.5f);
+				gluDisk(var, 0.0f, radius / 5.5f, 4, stacks);
+			}
+			glPopMatrix();
+		}
+		glPopMatrix();
+	}
+	glPopMatrix();
+}
+
 void drawFinger(GLUquadricObj *var) {
 	glPushMatrix();
 	{
+		
 		boneLength = 0.35f;
 		drawBone(var);
+		glPushMatrix();
+		{
+			glScalef(0.9f, 0.7f, 0.9f);
+			drawFingerArmor(var);
+		}
+		glPopMatrix();
 		glPushMatrix();
 		{
 			glTranslatef(0.0f, 0.0f, -0.1f); //Switch origin to prefered rotate point.
 			glRotatef(fingersAngle, 0.0f, 1.0f, 0.0f); //Rotating joint.
 			radius = 0.5f;
 			drawHingeJoint(var);
+			glPushMatrix();
+			{
+				glRotatef(90.0f,0.0f,0.0f,1.0f);
+				glScalef(0.8f,1.7f,1.7f);
+				drawHingeJointArmor(var);
+			}
+			glPopMatrix();
+			
 			radius = 1.0f;
 			glPushMatrix();
 			{
@@ -1174,10 +1355,25 @@ void drawFinger(GLUquadricObj *var) {
 				drawBone(var);
 				glPushMatrix();
 				{
+					glScalef(-1.0f, 1.0f, 1.0f);
+					glScalef(0.8f, 0.6f, 0.8f);
+					drawFingerArmor(var);
+				}
+				glPopMatrix();
+					
+				glPushMatrix();
+				{
 					glTranslatef(0.0f, 0.0f, 0.4f); //Switch origin to prefered rotate point.
 					glRotatef(fingersAngle, 0.0f, 1.0f, 0.0f); //Rotating joint.
 					radius = 0.5f;
 					drawHingeJoint(var);
+					glPushMatrix();
+					{
+						glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
+						glScalef(0.8f, 1.7f, 1.7f);
+						drawHingeJointArmor(var);
+					}
+					glPopMatrix();
 					radius = 1.0f;
 					glPushMatrix();
 					{
@@ -1185,6 +1381,12 @@ void drawFinger(GLUquadricObj *var) {
 						glTranslatef(0.0f, 0.0f, 0.0f);
 						boneLength = 0.30f;
 						drawBone(var);
+						glPushMatrix();
+						{
+							glScalef(0.7f, 0.5f, 0.7f);
+							drawFingerArmor(var);
+						}
+						glPopMatrix();
 					}
 					glPopMatrix();
 				}
@@ -1199,12 +1401,115 @@ void drawFinger(GLUquadricObj *var) {
 	
 }
 
+void drawHandArmor(GLUquadricObj *var) {
+	glPushMatrix();
+	{
+		glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
+		//draw palm details
+		glColor3f(139 / 255.0f, 119 / 255.0f, 114 / 255.0f);
+		glPushMatrix();
+		{
+			glTranslatef(0.0f, -0.1f, 0.05f);
+			glRotatef(55.0f, 0.0f, 0.0f, 1.0f);
+			gluCylinder(var, radius / 8.0f, 0.0f, 0.05f, 4, stacks);
+		}
+		glPopMatrix();
+		glPushMatrix();
+		{
+			glTranslatef(0.0f, 0.1f, 0.05f);
+			glRotatef(-55.0f, 0.0f, 0.0f, 1.0f);
+			gluCylinder(var, radius / 8.0f, 0.0f, 0.05f, 4, stacks);
+		}
+		glPopMatrix();
+		glPushMatrix();
+		{
+			glTranslatef(-0.1f, -0.2f, 0.05f);
+			glRotatef(-60.0f, 0.0f, 1.0f, 0.0f);
+			glRotatef(-90.0f, 0.0f, 0.0f, 1.0f);
+			glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
+			gluCylinder(var, radius / 16.0f, radius / 16.0f, 0.40f, 3, stacks);
+			gluDisk(var, 0.0f, radius / 16.0f, 3, stacks);
+			glPushMatrix();
+			{
+				glTranslatef(0.0f, 0.0f, 0.4f);
+				gluDisk(var, 0.0f, radius / 16.0f, 3, stacks);
+			}
+			glPopMatrix();
+		}
+		glPopMatrix();
+		
+		// draw hand back details
+		glPushMatrix();
+		{
+			glColor3f(97 / 255.0f, 99 / 255.0f, 122 / 255.0f);
+			glTranslatef(0.0f,0.0f,-0.09f);
+			glPushMatrix(); {
+				glTranslatef(0.10f,-0.07f,-0.05f);
+				glRotatef(-10.0f,0.0f,0.0f,1.0f);
+				glScalef(0.08f,0.01f,0.05f);
+				drawCover();
+			}
+			glPopMatrix();
+			glPushMatrix(); {
+				glScalef(1.0f, -1.0f, 1.0f);
+				glTranslatef(0.10f, -0.07f, -0.05f);
+				glRotatef(-10.0f, 0.0f, 0.0f, 1.0f);
+				glScalef(0.08f, 0.01f, 0.05f);
+				drawCover();
+			}
+			glPopMatrix();
+			
+			glPushMatrix(); {
+				glTranslatef(0.13f, 0.0f, -0.05f);
+				glScalef(0.025f, 0.07f, 0.05f);
+				drawCover();
+			}
+			glPopMatrix();
+			
+			glPushMatrix(); {
+				glTranslatef(0.05f, 0.0f, -0.03f);
+				glScalef(0.06f, 0.06f, 0.02f);
+				drawCover();
+			}
+			glPopMatrix();
+			
+			glPushMatrix(); {
+				glTranslatef(0.0f, -0.15f, -0.05f);
+				glRotatef(60.0f, 1.0f, 0.0f, 0.0f);
+				glRotatef(-15.0f, 0.0f, 1.0f, 0.0f);
+				glScalef(0.16f, 0.02f, 0.07f);
+				drawCover();
+			}
+			glPopMatrix();
+			glPushMatrix(); {
+				glScalef(1.0f, -1.0f, 1.0f);
+				glTranslatef(0.0f, -0.15f, -0.05f);
+				glRotatef(60.0f, 1.0f, 0.0f, 0.0f);
+				glRotatef(-15.0f, 0.0f, 1.0f, 0.0f);
+				glScalef(0.16f, 0.02f, 0.07f);
+				drawCover();
+			}
+			glPopMatrix();
+			glPushMatrix(); {
+				glTranslatef(-0.1f, 0.0f, -0.08f);
+				glScalef(0.10f, 0.10f, 0.02f);
+				drawCover();
+			}
+			glPopMatrix();
+		}
+		glPopMatrix();
+		glColor3f(139 / 255.0f, 119 / 255.0f, 114 / 255.0f);
+	}
+	glPopMatrix();
+	
+}
 
 
 void drawLeftHand(GLUquadricObj *var) {
-	fingersAngle = -fingersAngle;
 	glPushMatrix();
 	{
+		glScalef(-1.0f,1.0f,1.0f);
+		drawHandArmor(var);
 		glPushMatrix();
 		{
 			glScalef(0.05f, 0.17f, 0.17f);
@@ -1229,6 +1534,7 @@ void drawLeftHand(GLUquadricObj *var) {
 				drawFinger(var);
 			}
 			glPopMatrix();
+			glScalef(-1.0f, 1.0f, 1.0f);
 			//draw ring finger
 			glPushMatrix();
 			{
@@ -1237,6 +1543,7 @@ void drawLeftHand(GLUquadricObj *var) {
 				drawFinger(var);
 			}
 			glPopMatrix();
+			glScalef(-1.0f, 1.0f, 1.0f);
 			//draw little finger
 			glPushMatrix();
 			{
@@ -1245,13 +1552,14 @@ void drawLeftHand(GLUquadricObj *var) {
 				drawFinger(var);
 			}
 			glPopMatrix();
+			glScalef(-1.0f, 1.0f, 1.0f);
 			//draw thumb
 			glPushMatrix();
 			{
 				glScalef(0.3f, 0.3f, 0.28f);
-				glTranslatef(0.0f, -0.8f, -4.0f);
+				glTranslatef(0.0f, -0.8f, -3.5f);
 				glRotatef(-60.0f, 1.0f, 0.0f, 0.0f);
-				glRotatef(45.0f, 0.0f, 0.0f, 1.0f);
+				glRotatef(15.0f, 0.0f, 0.0f, 1.0f);
 				drawFinger(var);
 			}
 			glPopMatrix();
@@ -1260,12 +1568,12 @@ void drawLeftHand(GLUquadricObj *var) {
 
 	}
 	glPopMatrix();
-	fingersAngle = -fingersAngle;
 }
 
 void drawRightHand(GLUquadricObj *var) {
 	glPushMatrix();
 	{
+		drawHandArmor(var);
 		glPushMatrix();
 		{
 			glScalef(0.05f, 0.17f, 0.17f);
@@ -1310,9 +1618,9 @@ void drawRightHand(GLUquadricObj *var) {
 			glPushMatrix();
 			{
 				glScalef(0.3f, 0.3f, 0.28f);
-				glTranslatef(0.0f, -0.8f, -4.0f);
+				glTranslatef(0.0f, -0.8f, -3.5f);
 				glRotatef(-60.0f, 1.0f, 0.0f, 0.0f);
-				glRotatef(45.0f, 0.0f, 0.0f, 1.0f);
+				glRotatef(15.0f, 0.0f, 0.0f, 1.0f);
 				drawFinger(var);
 			}
 			glPopMatrix();
@@ -1453,7 +1761,7 @@ void drawTricepCover() {
 void drawTricepDetails(GLUquadricObj *var) {
 	glPushMatrix();
 	{
-		glColor3f(1.0f, 0.0f, 0.0f);
+		glColor3f(139 / 255.0f, 119 / 255.0f, 114 / 255.0f);
 		glTranslatef(0.0f, -0.05f, 0.90f);
 		glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
 		glPushMatrix(); {
@@ -1563,11 +1871,11 @@ void drawUpperArmArmor(GLUquadricObj *var) {
 		drawTricepDetails(var);
 		glPushMatrix();
 		{
-			glTranslatef(0.2f,0.0f,-0.15f);
+			glTranslatef(0.0f,0.0f,-0.15f);
 			glScalef(0.2f,1.0f,1.2f);
 			drawTricepDetails(var);
 			glScalef(-1.0f, 1.0f, 1.0f);
-			glTranslatef(0.2f, 0.0f, 0.0f);
+			glTranslatef(-0.7f, 0.0f, 0.0f);
 			drawTricepDetails(var);
 		}
 		glPopMatrix();
@@ -1576,27 +1884,177 @@ void drawUpperArmArmor(GLUquadricObj *var) {
 
 }
 
-void drawHingeJointArmor(GLUquadricObj *var) {
-	//draw Hinge Joint Screw
+void drawTripleCover() {
 	glPushMatrix();
 	{
-		glTranslatef(-0.15f, 0.0f, 0.0f);
-		glRotatef(90.0f,0.0f,1.0f,0.0f);
-		glRotatef(45.0f, 0.0f, 0.0f, 1.0f);
-		glColor3f(139 / 255.0f, 119 / 255.0f, 114 / 255.0f);
-		gluCylinder(var, radius / 7.0f, radius / 7.0f, 0.25f, 8, stacks);
+		glTranslatef(-0.15f, -0.20f, 0.28f);
+		glRotatef(-220.0f, 0.0f, 0.0f, 1.0f);
+		glRotatef(5.0f, 1.0f, 0.0f, 0.0f);
+		glScalef(0.10f, 0.03f, 0.15f);
+		drawCover();
+	}
+	glPopMatrix();
+
+	glPushMatrix();
+	{
+		glTranslatef(-0.22f, -0.05f, 0.28f);
+		glRotatef(-260.0f, 0.0f, 0.0f, 1.0f);
+		glRotatef(5.0f, 1.0f, 0.0f, 0.0f);
+		glScalef(0.10f, 0.03f, 0.15f);
+		drawCover();
+	}
+	glPopMatrix();
+
+	glPushMatrix();
+	{
+		glTranslatef(-0.15f, 0.1f, 0.28f);
+		glRotatef(-310.0f, 0.0f, 0.0f, 1.0f);
+		glRotatef(5.0f, 1.0f, 0.0f, 0.0f);
+		glScalef(0.11f, 0.03f, 0.15f);
+		drawCover();
+	}
+	glPopMatrix();
+}
+
+void drawLowerArmCover() {
+	
+	glPushMatrix();
+	{
+		glTranslatef(0.1f,0.19f,0.4f);
+		glRotatef(-20.0f, 0.0f, 0.0f, 1.0f);
+		glRotatef(5.0f, 0.0f, 1.0f, 0.0f);
 		glPushMatrix();
 		{
-			glTranslatef(0.0f, 0.0f, 0.25f);
-			gluDisk(var, 0.0f, radius / 7.0f, 8, stacks);
-			glPushMatrix();
-			{
-				glTranslatef(0.0f, 0.0f, -0.25f);
-				gluDisk(var, 0.0f, radius / 7.0f, 8, stacks);
-			}
-			glPopMatrix();
+			glScalef(0.1f,0.01f,0.35f);
+			drawCover();
 		}
 		glPopMatrix();
+	}
+	glPopMatrix();
+	
+	glPushMatrix();
+	{
+		glTranslatef(0.17f, 0.12f, 0.4f);
+		glRotatef(-60.0f, 0.0f, 0.0f, 1.0f);
+		glRotatef(-5.0f, 0.0f, 1.0f, 0.0f);
+		glPushMatrix();
+		{
+			glScalef(0.07f, 0.01f, 0.35f);
+			drawCover();
+		}
+		glPopMatrix();
+	}
+	glPopMatrix();
+	
+	glPushMatrix();
+	{
+		glTranslatef(0.22f, 0.0f, 0.36f);
+		glRotatef(-90.0f, 0.0f, 0.0f, 1.0f);
+		glRotatef(5.0f, 1.0f, 0.0f, 0.0f);
+		glPushMatrix();
+		{
+			glScalef(0.10f, 0.01f, 0.4f);
+			drawCover();
+		}
+		glPopMatrix();
+	}
+	glPopMatrix();
+
+	glPushMatrix();
+	{
+		glTranslatef(0.10f, -0.18f, 0.4f);
+		glRotatef(-135.0f, 0.0f, 0.0f, 1.0f);
+		glRotatef(5.0f, 1.0f, 0.0f, 0.0f);
+		glPushMatrix();
+		{
+			glScalef(0.17f, 0.01f, 0.1f);
+			drawCover();
+		}
+		glPopMatrix();
+	}
+	glPopMatrix();
+
+	drawTripleCover();
+	glPushMatrix();
+	{
+		glTranslatef(0.01f, 0.0f, 0.2f);
+		glScalef(1.0f, 0.6f, 1.0f);
+		drawTripleCover();
+	}
+	glPopMatrix();
+	glPushMatrix();
+	{
+		glTranslatef(0.0f, -0.10f, 0.0f);
+		glRotatef(75.0f,0.0f,0.0f,1.0f);
+		glRotatef(5.0f,0.0f,1.0f,0.0f);
+		glScalef(0.5f, 0.5f, 1.0f);
+		drawTripleCover();
+	}
+	glPopMatrix();
+
+}
+
+void drawLowerArmArmor(GLUquadricObj *var) {
+	//draw lower arm details
+	glPushMatrix();
+	{
+		glColor3f(139 / 255.0f, 119 / 255.0f, 114 / 255.0f);
+		glTranslatef(0.0f, 0.0f, 0.2f);
+		gluCylinder(var,radius/7.0f,radius/8.0f,0.5f,6,stacks);
+	}
+	glPopMatrix();
+	glPushMatrix(); {
+		glTranslatef(-0.07f, -0.6f, -0.3f);
+		glRotatef(-45.0f, 1.0f, 0.0f, 0.0f);
+		drawTricepDetails(var);
+	}
+	glPopMatrix();
+
+	//draw lower arm armor
+	drawLowerArmCover();
+
+	//draw rocket punch booster
+	glColor3f(139 / 255.0f, 119 / 255.0f, 114 / 255.0f);
+	glPushMatrix();
+	{
+		glTranslatef(0.0f, -0.15f, 0.1f);
+		gluCylinder(var, radius / 20.0f, 0.0f, 0.4f, 8, stacks);
+		glPushMatrix();
+		{
+			glTranslatef(0.0f, 0.0f, 0.05f);
+			glColor3f(0.0f, 0.0f, 0.0f);
+			gluDisk(var, 0.0f, radius / 24.0f, 8 ,stacks);
+		}
+		glPopMatrix();
+	}
+	glPopMatrix();
+}
+
+
+
+void drawHandJointArmor(GLUquadricObj *var) {
+	glPushMatrix();
+	{
+		glTranslatef(0.0f,0.1f,0.0f);
+		glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
+		glScalef(0.2f, 0.8f, 0.8f);
+		drawHingeJointArmor(var);
+	}
+	glPopMatrix();
+	glPushMatrix();
+	{
+		glTranslatef(0.0f, 0.02f, 0.0f);
+		glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
+		glScalef(0.2f, 0.8f, 0.8f);
+		drawHingeJointArmor(var);
+	}
+	glPopMatrix();
+	glPushMatrix();
+	{
+		glTranslatef(0.0f, -0.08f, 0.0f);
+		glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
+		glScalef(0.3f, 0.8f, 0.8f);
+		drawHingeJointArmor(var);
 	}
 	glPopMatrix();
 }
@@ -1612,6 +2070,7 @@ void drawLeftArm(GLUquadricObj *var) {
 			glRotatef(leftArmAngle2, 1.0f, 0.0f, 0.0f); //Rotating joint.
 			drawHingeJoint(var);
 			drawHingeJointArmor(var);
+			drawFloatHingeJointArmor(var);
 			glPushMatrix();
 			{
 				glRotatef(180.0f, 1.0f, 0.0f, 0.0f);
@@ -1619,10 +2078,12 @@ void drawLeftArm(GLUquadricObj *var) {
 				//glTranslatef(4.0f, 0.0f, 0.0f); //Move to desired draw location.
 				boneLength = 0.8f;
 				drawBone(var);
+				drawLowerArmArmor(var);
 				glPushMatrix();
 				{
 					glTranslatef(0.0f, 0.0f, 0.8f);
 					drawHingeJoint(var);
+					drawHandJointArmor(var);
 					glTranslatef(0.0f, 0.0f, 0.2f);
 					drawLeftHand(var);
 				}
@@ -1648,10 +2109,10 @@ void drawRightArm(GLUquadricObj *var) {
 			drawHingeJoint(var);
 			glPushMatrix(); {
 				glScalef(-1.0f, 1.0f, 1.0f);
+				drawHingeJointArmor(var);
+				drawFloatHingeJointArmor(var);
 			}
 			glPopMatrix();
-			
-			drawHingeJointArmor(var);
 			glPushMatrix();
 			{
 				glRotatef(180.0f, 1.0f, 0.0f, 0.0f);
@@ -1659,10 +2120,20 @@ void drawRightArm(GLUquadricObj *var) {
 				//glTranslatef(4.0f, 0.0f, 0.0f); //Move to desired draw location.
 				boneLength = 0.8f;
 				drawBone(var);
+				glPushMatrix(); {
+					glScalef(-1.0f, 1.0f, 1.0f);
+					drawLowerArmArmor(var);
+				}
+				glPopMatrix();
 				glPushMatrix();
 				{
 					glTranslatef(0.0f, 0.0f, 0.8f);
 					drawHingeJoint(var);
+					glPushMatrix(); {
+						glScalef(-1.0f, 1.0f, 1.0f);
+						drawHandJointArmor(var);
+					}
+					glPopMatrix();
 					glTranslatef(0.0f, 0.0f, 0.2f);
 					drawRightHand(var);
 				}
@@ -1716,16 +2187,461 @@ void drawRightFoot(GLUquadricObj *var) {
 	boneLength = 2.0f;
 }
 
+void drawUpperLegJointArmor(GLUquadricObj *var) {
+	glPushMatrix();
+	{
+		glColor3f(139 / 255.0f, 119 / 255.0f, 114 / 255.0f);
+		glTranslatef(0.10f,0.0f,0.0f);
+		glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
+		gluCylinder(var, radius / 15.0f, radius / 15.0f, 0.5f, 6, stacks);
+		gluDisk(var, 0.0f, radius / 15.0f, 6, stacks);
+		glPushMatrix();
+		{
+			glTranslatef(0.0f, 0.0f, 0.4f);
+			gluDisk(var, 0.0f, radius / 15.0f, 6, stacks);
+		}
+		glPopMatrix();
+		glPushMatrix(); {
+			glTranslatef(0.0f, 0.0f, -0.1f);
+			gluCylinder(var, radius / 5.0f, radius / 5.0f, 0.1f, 6, stacks);
+			gluDisk(var, 0.0f, radius / 5.0f, 6, stacks);
+			glPushMatrix();
+			{
+				glTranslatef(0.0f, 0.0f, 0.1f);
+				gluDisk(var, 0.0f, radius / 5.0f, 6, stacks);
+			}
+			glPopMatrix();
+		}
+		glPopMatrix();
+		
+		glPushMatrix(); {
+			glTranslatef(0.0f, 0.0f, 0.35f);
+			glScalef(1.0f, 1.2f, 1.0f);
+			gluCylinder(var, radius / 6.0f, radius / 6.0f, 0.1f, 6, stacks);
+			gluDisk(var, 0.0f, radius / 6.0f, 6, stacks);
+			glPushMatrix();
+			{
+				glTranslatef(0.0f, 0.0f, 0.1f);
+				gluDisk(var, 0.0f, radius / 6.0f, 6, stacks);
+			}
+			glPopMatrix();
+		}
+		glPopMatrix();
+	}
+	glPopMatrix();
+
+	//Thigh bone joint connection
+	glPushMatrix();
+	{
+		glTranslatef(0.1f, 0.10f, 0.0f);
+		glRotatef(-90.0f, 0.0f,1.0f,0.0f);
+		gluCylinder(var, radius / 20.0f, radius / 20.0f, 0.4f, 4, stacks);
+	}
+	glPopMatrix();
+	glPushMatrix();
+	{
+		glTranslatef(-0.075f, 0.10f, 0.0f);
+		glRotatef(45.0f, 0.0f, 0.0f, 1.0f);
+		gluCylinder(var, radius / 25.0f, radius / 25.0f, 0.2f, 4, stacks);
+		gluDisk(var, 0.0f, radius / 25.0f, 4, stacks);
+		glPushMatrix();
+		{
+			glTranslatef(0.0f, 0.0f, 0.2f);
+			gluDisk(var, 0.0f, radius / 25.0f, 4, stacks);
+		}
+		glPopMatrix();
+	}
+	glPopMatrix();
+}
+
+void drawThighBone(GLUquadricObj *var) {
+	glPushMatrix();
+	{
+		glTranslatef(-0.075f, -0.025f, -0.1f);
+		glPushMatrix();
+		{
+			glColor3f(139 / 255.0f, 119 / 255.0f, 114 / 255.0f);
+			glRotatef(45.0f, 0.0f, 0.0f, 1.0f);
+			glPushMatrix(); {
+				gluCylinder(var, radius / 14.0f, radius / 14.0f, 0.8f, 4, stacks);
+				gluDisk(var, 0.0f, radius / 14.0f, 4, stacks);
+				glPushMatrix();
+				{
+					glTranslatef(0.0f, 0.0f, 0.8f);
+					gluDisk(var, 0.0f, radius / 14.0f, 4, stacks);
+				}
+				glPopMatrix();
+			}
+			glPopMatrix();
+
+			glColor3f(97 / 255.0f, 99 / 255.0f, 122 / 255.0f);
+			glPushMatrix();
+			{
+				glTranslatef(0.0f, 0.0f, 0.2f);
+				gluCylinder(var, radius / 12.0f, radius / 12.0f, 0.8f, 6, stacks);
+			}
+			glPopMatrix();
+		}
+		glPopMatrix();
+		glPushMatrix(); {
+			glColor3f(139 / 255.0f, 119 / 255.0f, 114 / 255.0f);
+			glTranslatef(0.06f, 0.0f, 0.0f);
+			glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
+			gluCylinder(var, radius / 14.0f, radius / 14.0f, 0.12f, 6, stacks);
+			gluDisk(var, 0.0f, radius / 14.0f, 6, stacks);
+			glPushMatrix();
+			{
+				glTranslatef(0.0f, 0.0f, 0.12f);
+				gluDisk(var, 0.0f, radius / 14.0f, 6, stacks);
+			}
+			glPopMatrix();
+		}
+		glPopMatrix();
+	}
+	glPopMatrix();
+	
+}
+
+void drawThighBoneConnection(GLUquadricObj *var) {
+	glPushMatrix();
+	{
+		glColor3f(97 / 255.0f, 99 / 255.0f, 122 / 255.0f);
+		glTranslatef(0.27f, 0.0f, 0.9f);
+		glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
+		gluCylinder(var, radius / 10.0f, radius / 10.0f, 0.50f, 6, stacks);
+		gluDisk(var, 0.0f, radius / 10.0f, 6, stacks);
+		glPushMatrix();
+		{
+			glTranslatef(0.0f, 0.0f, 0.50f);
+			gluDisk(var, 0.0f, radius / 10.0f, 6, stacks);
+		}
+		glPopMatrix();
+	}
+	glPopMatrix();
+}
+
+void drawThighArmor(GLUquadricObj *var) {
+	glPushMatrix();
+	{
+		//draw Thigh details
+		glPushMatrix();
+		{
+			glTranslatef(0.1f,0.15f,0.2f);
+			drawThighBone(var);
+			glTranslatef(-0.2f, 0.0f, 0.0f);
+			drawThighBone(var);
+			drawThighBoneConnection(var);
+		}
+		glPopMatrix();
+		glPushMatrix();
+		{
+			glTranslatef(0.1f, -0.15f, 0.2f);
+			glScalef(1.1f,1.1f,1.2f);
+			drawThighBone(var);
+			glTranslatef(-0.2f, 0.0f, 0.0f);
+			drawThighBone(var);
+			drawThighBoneConnection(var);
+			glPushMatrix();
+			{
+				glColor3f(139 / 255.0f, 119 / 255.0f, 114 / 255.0f);
+				glTranslatef(0.05f, 0.1f, 1.05f);
+				glScalef(0.2f, 0.1f, 0.15f);
+				drawFilledCube();
+			}
+			glPopMatrix();
+		}
+		glPopMatrix();
+		glColor3f(139 / 255.0f, 119 / 255.0f, 114 / 255.0f);
+		glPushMatrix();
+		{
+			glTranslatef(0.05f, 0.15f, 1.19f);
+			gluCylinder(var, radius / 10.0f, radius / 10.0f, 0.50f, 8, stacks);
+			gluDisk(var, 0.0f, radius / 10.0f, 8, stacks);
+			glPushMatrix();
+			{
+				glTranslatef(0.0f, 0.0f, 0.45f);
+				gluDisk(var, 0.0f, radius / 10.0f, 8, stacks);
+			}
+			glPopMatrix();
+		}
+		glPopMatrix();
+
+		glPushMatrix();
+		{
+			glTranslatef(-0.20f, 0.15f, 1.19f);
+			gluCylinder(var, radius / 10.0f, radius / 10.0f, 0.50f, 8, stacks);
+			gluDisk(var, 0.0f, radius / 10.0f, 8, stacks);
+			glPushMatrix();
+			{
+				glTranslatef(0.0f, 0.0f, 0.45f);
+				gluDisk(var, 0.0f, radius / 10.0f, 8, stacks);
+			}
+			glPopMatrix();
+		}
+		glPopMatrix();
+		glPushMatrix();
+		{
+			glTranslatef(0.20f, 0.15f,1.70f);
+			glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
+			gluCylinder(var, radius / 12.0f, radius / 12.0f, 0.55f, 8, stacks);
+			gluDisk(var, 0.0f, radius / 12.0f, 8, stacks);
+			glPushMatrix();
+			{
+				glTranslatef(0.0f, 0.0f, 0.55f);
+				gluDisk(var, 0.0f, radius / 12.0f, 8, stacks);
+			}
+			glPopMatrix();
+		}
+		glPopMatrix();
+		
+	}
+	glPopMatrix();
+}
+
+void drawUpperLegArmor(GLUquadricObj *var) {
+	glPushMatrix();
+	{
+		drawUpperLegJointArmor(var);
+		drawThighArmor(var);
+	}
+	glPopMatrix();
+}
+
+void drawLowerLegJointArmor(GLUquadricObj *var) {
+	glPushMatrix();
+	{
+		glColor3f(139 / 255.0f, 119 / 255.0f, 114 / 255.0f);
+		glTranslatef(0.10f,0.0f,-0.3f);
+		glRotatef(-90.0f,0.0f,1.0f,0.0f);
+		glPushMatrix();
+		{
+			glRotatef(30.0f, 0.0f, 0.0f, 1.0f);
+			glScalef(1.0f, 1.5f, 1.0f);
+			gluCylinder(var, radius / 4.0f, radius / 4.0f, 0.2f, 10, stacks);
+			gluDisk(var, 0.0f, radius / 4.0f, 10, stacks);
+			glPushMatrix();
+			{
+				glTranslatef(0.0f, 0.0f, 0.2f);
+				gluDisk(var, 0.0f, radius / 4.0f, 10, stacks);
+			}
+			glPopMatrix();
+		}
+		glPopMatrix();
+		glPushMatrix();
+		{
+			glTranslatef(0.0f, 0.0f, -0.05f);
+			gluCylinder(var, radius / 5.0f, radius / 5.0f, 0.35f, 8, stacks);
+			gluDisk(var, 0.0f, radius / 5.0f, 8, stacks);
+			glPushMatrix();
+			{
+				glTranslatef(0.0f, 0.0f, 0.35f);
+				gluDisk(var, 0.0f, radius / 5.0f, 8, stacks);
+			}
+			glPopMatrix();
+		}
+		glPopMatrix();
+
+		glPushMatrix();
+		{
+			glTranslatef(0.0f, 0.0f, -0.12f);
+			gluCylinder(var, radius / 7.5f, radius / 7.5f, 0.6f, 8, stacks);
+			gluDisk(var, 0.0f, radius / 7.5f, 8, stacks);
+			glPushMatrix();
+			{
+				glTranslatef(0.0f, 0.0f, 0.6f);
+				gluDisk(var, 0.0f, radius / 7.5f, 8, stacks);
+			}
+			glPopMatrix();
+		}
+		glPopMatrix();
+
+		glPushMatrix();
+		{
+			glTranslatef(-0.28f, 0.25f, 0.0f);
+			gluCylinder(var, radius / 6.0f, radius / 6.0f, 0.4f, 8, stacks);
+			gluDisk(var, 0.0f, radius / 6.0f, 8, stacks);
+			glPushMatrix();
+			{
+				glTranslatef(0.0f, 0.0f, 0.4f);
+				gluDisk(var, 0.0f, radius / 6.0f, 8, stacks);
+			}
+			glPopMatrix();
+			glPushMatrix();
+			{
+				glTranslatef(0.0f, 0.0f, -0.15f);
+				gluCylinder(var, radius / 6.5f, radius / 6.5f, 0.4f, 8, stacks);
+				gluDisk(var, 0.0f, radius / 6.5f, 8, stacks);
+				glPushMatrix();
+				{
+					glTranslatef(0.0f, 0.0f, 0.4f);
+					gluDisk(var, 0.0f, radius / 6.5f, 8, stacks);
+				}
+				glPopMatrix();
+			}
+			glPopMatrix();
+		}
+		glPopMatrix();
+	}
+	glPopMatrix();
+}
+
+void drawLowerLegArmor(GLUquadricObj *var) {
+	glPushMatrix();
+	{
+		glColor3f(139 / 255.0f, 119 / 255.0f, 114 / 255.0f);
+		glTranslatef(0.0f,0.15f,0.5f);
+		//draw joint connector
+		glPushMatrix();
+		{
+			glTranslatef(0.15f, 0.0f, 0.0f);
+			glRotatef(-30.0f,1.0f,0.0f,0.0f);
+			glScalef(0.03f,0.1f,0.08f);
+			drawFilledCube();
+		}
+		glPopMatrix();
+		glPushMatrix();
+		{
+			glTranslatef(-0.15f, 0.0f, 0.0f);
+			glRotatef(-30.0f, 1.0f, 0.0f, 0.0f);
+			glScalef(0.03f, 0.1f, 0.08f);
+			drawFilledCube();
+		}
+		glPopMatrix();
+		glPushMatrix();
+		{
+			glTranslatef(0.0f, 0.0f, 0.2f);
+			glRotatef(-30.0f, 1.0f, 0.0f, 0.0f);
+			glScalef(0.17f, 0.20f, 0.10f);
+			drawFilledCube();
+		}
+		glPopMatrix();
+		glColor3f(1.0f, 0.0f, 0.0f);
+		//draw shin details
+		glPushMatrix();
+		{
+			glTranslatef(0.2f, 0.15f, 0.4f);
+			glRotatef(15.0f,1.0f,0.0f,0.0f);
+			drawThighBone(var);
+			glTranslatef(-0.2f, 0.0f, 0.0f);
+			drawThighBone(var);
+			drawThighBoneConnection(var);
+		}
+		glPopMatrix();
+		glPushMatrix();
+		{
+			glTranslatef(0.2f, 0.0f, 0.30f);
+			glRotatef(15.0f, 1.0f, 0.0f, 0.0f);
+			drawThighBone(var);
+			glTranslatef(-0.2f, 0.0f, 0.0f);
+			drawThighBone(var);
+		}
+		glPopMatrix();
+		//draw lower leg booster
+		glPushMatrix();
+		{
+			glTranslatef(0.0f, -0.15f, 0.30f);
+			glRotatef(80.0f,1.0f,0.0f,0.0f);
+			gluCylinder(var, radius / 3.5f, radius / 5.5f, 0.5f, 8, stacks);
+			gluDisk(var, 0.0f, radius / 3.5f, 8, stacks);
+			glPushMatrix();
+			{
+				glTranslatef(0.0f, 0.0f, 0.5f);
+				gluDisk(var, 0.0f, radius / 5.5f, 8, stacks);
+			}
+			glPopMatrix();
+		}
+		glPopMatrix();
+		glColor3f(0.0f, 0.0f, 0.0f);
+		glPushMatrix();
+		{
+			glTranslatef(0.0f, -0.20f, 0.30f);
+			glRotatef(85.0f, 1.0f, 0.0f, 0.0f);
+			gluCylinder(var, radius / 9.0f, radius / 9.0f, 0.5f, 8, stacks);
+			gluDisk(var, 0.0f, radius / 9.0f, 8, stacks);
+			glPushMatrix();
+			{
+				glTranslatef(0.0f, 0.0f, 0.5f);
+				gluDisk(var, 0.0f, radius / 9.0f, 8, stacks);
+			}
+			glPopMatrix();
+		}
+		glPopMatrix();
+		glColor3f(139 / 255.0f, 119 / 255.0f, 114 / 255.0f);
+		//draw calf details
+		glPushMatrix();
+		{
+			glTranslatef(0.0f, -0.30f, 0.30f);
+			gluCylinder(var, radius / 7.0f, radius / 7.0f, 1.0f, 6, stacks);
+			gluDisk(var, 0.0f, radius / 7.0f, 8, stacks);
+			glPushMatrix();
+			{
+				glTranslatef(0.0f, 0.0f, 1.0f);
+				gluDisk(var, 0.0f, radius / 7.0f, 6, stacks);
+			}
+			glPopMatrix();
+		}
+		glPopMatrix();
+		glPushMatrix();
+		{
+			glTranslatef(-0.2f, -0.40f, 0.8f);
+			glRotatef(90.0f,0.0f,1.0f,0.0f);
+			gluCylinder(var, radius / 12.0f, radius / 12.0f, 0.4f, 6, stacks);
+			gluDisk(var, 0.0f, radius / 12.0f, 6, stacks);
+			glPushMatrix();
+			{
+				glTranslatef(0.0f, 0.0f, 0.4f);
+				gluDisk(var, 0.0f, radius / 12.0f, 6, stacks);
+			}
+			glPopMatrix();
+		}
+		glPopMatrix();
+		glColor3f(1.0f, 0.0f, 0.0f);
+		glPushMatrix();
+		{
+			glTranslatef(-0.05f, -0.40f, 1.10f);
+			glRotatef(80.0f, 1.0f, 0.0f, 0.0f);
+			glScalef(1.0f,3.5f,1.0f);
+			gluCylinder(var, radius / 15.0f, radius / 15.0f, 0.1f, 8, stacks);
+			gluDisk(var, 0.0f, radius / 15.0f, 8, stacks);
+			glPushMatrix();
+			{
+				glTranslatef(0.0f, 0.0f, 0.1f);
+				gluDisk(var, 0.0f, radius / 15.0f, 8, stacks);
+			}
+			glPopMatrix();
+		}
+		glPopMatrix();
+		glPushMatrix();
+		{
+			glTranslatef(0.05f, -0.40f, 1.10f);
+			glRotatef(80.0f, 1.0f, 0.0f, 0.0f);
+			glScalef(1.0f, 3.5f, 1.0f);
+			gluCylinder(var, radius / 15.0f, radius / 15.0f, 0.1f, 8, stacks);
+			gluDisk(var, 0.0f, radius / 15.0f, 8, stacks);
+			glPushMatrix();
+			{
+				glTranslatef(0.0f, 0.0f, 0.1f);
+				gluDisk(var, 0.0f, radius / 15.0f, 8, stacks);
+			}
+			glPopMatrix();
+		}
+		glPopMatrix();
+	}
+	glPopMatrix();
+}
+
 void drawLeftLeg(GLUquadricObj *var) {
 	glPushMatrix();
 	{
 		boneLength = 1.7f;
 		drawBone(var);
+		drawUpperLegArmor(var);
 		glPushMatrix();
 		{
 			glTranslatef(0.0f, 0.0f, 1.7f); //Switch origin to prefered rotate point.
 			glRotatef(leftLegAngle2, leftLegAxis[1][0], leftLegAxis[1][1], leftLegAxis[1][2]); //Rotating joint.
 			drawHingeJoint(var);
+			drawLowerLegJointArmor(var);
 			glPushMatrix();
 			{
 				glRotatef(180.0f, 1.0f, 0.0f, 0.0f);
@@ -1733,6 +2649,7 @@ void drawLeftLeg(GLUquadricObj *var) {
 				//glTranslatef(4.0f, 0.0f, 0.0f); //Move to desired draw location.
 				boneLength = 2.0f;
 				drawBone(var);
+				drawLowerLegArmor(var);
 				glPushMatrix();
 				{
 					glTranslatef(0.0f, 0.0f, 2.0f);
@@ -1755,11 +2672,21 @@ void drawRightLeg(GLUquadricObj *var) {
 	{
 		boneLength = 1.7f;
 		drawBone(var);
+		glPushMatrix(); {
+			glScalef(-1.0f, 1.0f, 1.0f);
+			drawUpperLegArmor(var);
+		}
+		glPopMatrix();
 		glPushMatrix();
 		{
 			glTranslatef(0.0f, 0.0f, 1.7f); //Switch origin to prefered rotate point.
 			glRotatef(rightLegAngle2, rightLegAxis[1][0], rightLegAxis[1][1], rightLegAxis[1][2]); //Rotating joint.
 			drawHingeJoint(var);
+			glPushMatrix(); {
+				glScalef(-1.0f, 1.0f, 1.0f);
+				drawLowerLegJointArmor(var);
+			}
+			glPopMatrix();
 			glPushMatrix();
 			{
 				glRotatef(180.0f, 1.0f, 0.0f, 0.0f);
@@ -1767,6 +2694,11 @@ void drawRightLeg(GLUquadricObj *var) {
 				//glTranslatef(4.0f, 0.0f, 0.0f); //Move to desired draw location.
 				boneLength = 2.0f;
 				drawBone(var);
+				glPushMatrix(); {
+					glScalef(-1.0f, 1.0f, 1.0f);
+					drawLowerLegArmor(var);
+				}
+				glPopMatrix();
 				glPushMatrix();
 				{
 					glTranslatef(0.0f, 0.0f, 2.0f);
@@ -1786,19 +2718,19 @@ void drawRightLeg(GLUquadricObj *var) {
 
 
 void leftKeyAction() {
-	rightArmAngle3 += 1.0f;
+	upperBodyJointAngle += 1.0f;
 }
 
 void rightKeyAction() {
-	rightArmAngle3 -= 1.0f;
+	upperBodyJointAngle -= 1.0f;
 }
 
 void upKeyAction() {
-	leftLegAngle1 -= 1.0f;
+	bodyJointAngle -= 1.0f;
 }
 
 void downKeyAction() {
-	leftLegAngle1 -= 1.0f;
+	bodyJointAngle += 1.0f;
 }
 
 void wKeyAction() {
