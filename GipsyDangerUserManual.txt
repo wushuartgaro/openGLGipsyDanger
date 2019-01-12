@@ -1,12 +1,10 @@
 For camera viewport,
 Use mouse's left click to control camera angle, use scroll wheel to zoom in or out
-Home, End, Del, Pgdn for camera movement.
 
 For environment,
 Press 4 for changing day light or night time
 Press 1,2,3 to switch on/off ambient/diffuse/specular
 Press 0 for putting robot in scene 1 - tower bridge
-Press 9 to swap mech
 
 For general setting,
 Press G for enable/disable lighting
