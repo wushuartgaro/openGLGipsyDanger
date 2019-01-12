@@ -23,7 +23,9 @@ Press F/R to switch on left/right hand
 Press X for sword, Press Z for stregthen sword
 Press C for plasma cannon, Press V for shooting 
 
-*Long press X,Z,V got surprise XD
+*Long press X for sword deploy/retract animation
+*Long press Z for sword strengthening/release animation
+*Long press C for plasma charging/enlarging animation
 
 For customization (changing texture)
 Press Y for changing the armor texture (total 6 types)
@@ -40,22 +42,5 @@ Press arrow up/down/left/right to control angle
 Press Space Bar to restore everything
 
 
-//Tsugumori Action
-Press I, J, K, L for changing moving direction
-Press U to move foward
-Press P for shoulder armor adjustment
-Press O to reset position
-Press 8 to reset movement
-Press 7 to rifle stance
-
-//Both Action
-Press F2 to trigger both mech's shooting
-
-//Bridge Action
-Press F1 to trigger destroyed bridge
-
-//Animation
-Press F2 for dogfight (One time use)
-Press F3 for explosion
 
 
