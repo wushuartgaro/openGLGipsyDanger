@@ -1,2 +1,17 @@
-﻿  OpenGLGipsyDanger.vcxproj -> C:\Users\Hard-\Documents\GitHub\openGLGipsyDanger\OpenGLGipsyDanger\Debug\OpenGLGipsyDanger.exe
+﻿  GipsyDanger.cpp
+c:\users\hard-\documents\github\openglgipsydanger\openglgipsydanger\openglgipsydanger\gipsydanger.cpp(248): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\hard-\documents\github\openglgipsydanger\openglgipsydanger\openglgipsydanger\gipsydanger.cpp(249): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\hard-\documents\github\openglgipsydanger\openglgipsydanger\openglgipsydanger\gipsydanger.cpp(254): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\hard-\documents\github\openglgipsydanger\openglgipsydanger\openglgipsydanger\gipsydanger.cpp(255): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\hard-\documents\github\openglgipsydanger\openglgipsydanger\openglgipsydanger\gipsydanger.cpp(926): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\hard-\documents\github\openglgipsydanger\openglgipsydanger\openglgipsydanger\gipsydanger.cpp(927): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\hard-\documents\github\openglgipsydanger\openglgipsydanger\openglgipsydanger\gipsydanger.cpp(1117): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\hard-\documents\github\openglgipsydanger\openglgipsydanger\openglgipsydanger\gipsydanger.cpp(2655): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
+c:\users\hard-\documents\github\openglgipsydanger\openglgipsydanger\openglgipsydanger\gipsydanger.cpp(2659): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
+c:\users\hard-\documents\github\openglgipsydanger\openglgipsydanger\openglgipsydanger\gipsydanger.cpp(2832): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\hard-\documents\github\openglgipsydanger\openglgipsydanger\openglgipsydanger\gipsydanger.cpp(5603): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\hard-\documents\github\openglgipsydanger\openglgipsydanger\openglgipsydanger\gipsydanger.cpp(5612): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\hard-\documents\github\openglgipsydanger\openglgipsydanger\openglgipsydanger\gipsydanger.cpp(5875): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\hard-\documents\github\openglgipsydanger\openglgipsydanger\openglgipsydanger\gipsydanger.cpp(5886): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+  OpenGLGipsyDanger.vcxproj -> C:\Users\Hard-\Documents\GitHub\openGLGipsyDanger\OpenGLGipsyDanger\Debug\OpenGLGipsyDanger.exe
   OpenGLGipsyDanger.vcxproj -> C:\Users\Hard-\Documents\GitHub\openGLGipsyDanger\OpenGLGipsyDanger\Debug\OpenGLGipsyDanger.pdb (Partial PDB)
