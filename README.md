@@ -50,16 +50,16 @@ Press arrow up/down/left/right to control angle
 Press Space Bar to restore everything
 
 # Screenshots of the OpenGL Gipsy Danger
-![](https://github.com/wushuartgaro/openGLGipsyDanger/blob/master/01_OpenGLGipsyDangerFront.png)
-![](https://github.com/wushuartgaro/openGLGipsyDanger/blob/master/02_OpenGLGipsyDangerBack.png)
-![](https://github.com/wushuartgaro/openGLGipsyDanger/blob/master/03_OpenGLGipsyDangerSide.png)
-![](https://github.com/wushuartgaro/openGLGipsyDanger/blob/master/04_OpenGLGipsyDangerSword1.png)
-![](https://github.com/wushuartgaro/openGLGipsyDanger/blob/master/05_OpenGLGipsyDangerSword2.png)
-![](https://github.com/wushuartgaro/openGLGipsyDanger/blob/master/06_OpenGLGipsyDangerCannon1.png)
-![](https://github.com/wushuartgaro/openGLGipsyDanger/blob/master/07_OpenGLGipsyDangerCannon2.png)
-![](https://github.com/wushuartgaro/openGLGipsyDanger/blob/master/08_OpenGLGipsyDangerCannon3.png)
-![](https://github.com/wushuartgaro/openGLGipsyDanger/blob/master/09_OpenGLGipsyDangerLondonTowerBridge1.png)
-![](https://github.com/wushuartgaro/openGLGipsyDanger/blob/master/10_OpenGLGipsyDangerLondonTowerBridge2.png)
+![](https://github.com/wushuartgaro/openGLGipsyDanger/blob/master/Screenshots/01_OpenGLGipsyDangerFront.png)
+![](https://github.com/wushuartgaro/openGLGipsyDanger/blob/master/Screenshots/02_OpenGLGipsyDangerBack.png)
+![](https://github.com/wushuartgaro/openGLGipsyDanger/blob/master/Screenshots/03_OpenGLGipsyDangerSide.png)
+![](https://github.com/wushuartgaro/openGLGipsyDanger/blob/master/Screenshots/04_OpenGLGipsyDangerSword1.png)
+![](https://github.com/wushuartgaro/openGLGipsyDanger/blob/master/Screenshots/05_OpenGLGipsyDangerSword2.png)
+![](https://github.com/wushuartgaro/openGLGipsyDanger/blob/master/Screenshots/06_OpenGLGipsyDangerCannon1.png)
+![](https://github.com/wushuartgaro/openGLGipsyDanger/blob/master/Screenshots/07_OpenGLGipsyDangerCannon2.png)
+![](https://github.com/wushuartgaro/openGLGipsyDanger/blob/master/Screenshots/08_OpenGLGipsyDangerCannon3.png)
+![](https://github.com/wushuartgaro/openGLGipsyDanger/blob/master/Screenshots/09_OpenGLGipsyDangerLondonTowerBridge1.png)
+![](https://github.com/wushuartgaro/openGLGipsyDanger/blob/master/Screenshots/10_OpenGLGipsyDangerLondonTowerBridge2.png)
 
 
 
