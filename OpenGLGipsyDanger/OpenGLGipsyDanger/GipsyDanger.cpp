@@ -1265,9 +1265,11 @@ void drawPlasmaCannon(GLUquadricObj *var) {
 		GLfloat light_position1[] = { (xPosition*0.05f)+ ballXPosition, ballYPosition, (-yPosition*0.025f)+ ballZPosition, 0.0 };
 
 		GLfloat light_plasma[] = { 23 / 255.0f, 114 / 255.0f, 254 / 255.0f, 1.0 };
+		GLfloat light_direction[] = { 0.0, 0.0, -1.0 };
 
 		glLightfv(GL_LIGHT1, GL_SPECULAR, light_plasma);
-
+		//glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 90.0);
+		//glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, light_direction);
 		glLightfv(GL_LIGHT1, GL_POSITION, light_position1);
 
 		glPushMatrix();
@@ -1718,15 +1720,20 @@ void drawReactor(GLUquadricObj *var) {
 		}
 		glPopMatrix();
 
-		GLfloat light_position2[] = { 0.0f,0.0f, 0.0f, 0.0 };
-
+		GLfloat light_position2[] = { (xPosition*0.05f) + ballXPosition, ballYPosition, (-yPosition*0.025f) + ballZPosition - 0.12f, 0.0 };
+		GLfloat light_direction[] = { 0.0, 0.0, -1.0};
 		GLfloat light_reactor[] = { 239 / 255.0f, 150 / 255.0f, 4 / 255.0f, 1.0 };
 
 		glLightfv(GL_LIGHT2, GL_SPECULAR, light_reactor);
-
+		glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 10.0);
+		glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, light_direction);
+		glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, 10.0);
+		glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 0.1f);
+		glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.3f);
+		glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.3f);
 		glLightfv(GL_LIGHT2, GL_POSITION, light_position2);
-		
 		//glEnable(GL_LIGHT2);
+
 
 
 		if (vKeyDown) {
@@ -1739,7 +1746,7 @@ void drawReactor(GLUquadricObj *var) {
 			glRotatef(-reactorRotateAngle, 1.0f, 1.0f, 1.0f);
 			glColor3f(255 / 255.0f, 255 / 255.0f, 255 / 255.0f);
 			glBindTexture(GL_TEXTURE_2D, plasmaTexture);
-			//gluSphere(var, radius / 25.0f, slices, stacks);
+			//gluSphere(var, radius / 8.0f, slices, stacks);
 		}
 		glPopMatrix();
 
@@ -6083,7 +6090,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmdShow)
 	if (!RegisterClassEx(&wc)) return false;
 
 	HWND hWnd = CreateWindow(WINDOW_TITLE, WINDOW_TITLE, WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT, CW_USEDEFAULT, 600, 600,
+		CW_USEDEFAULT, CW_USEDEFAULT, 1000, 1000,
 		NULL, NULL, wc.hInstance, NULL);
 
 	//--------------------------------
