@@ -1,6 +1,7 @@
 # openGLGipsyDanger
 This is a project using basic OpenGL library to draw/code out the movie Pacific Rim's protagonist jaeger - Gipsy Danger
 ![](https://github.com/wushuartgaro/openGLGipsyDanger/blob/master/Screenshots/MouseControl.gif)
+![](https://github.com/wushuartgaro/openGLGipsyDanger/blob/master/Screenshots/Walking.gif)
 ![](https://github.com/wushuartgaro/openGLGipsyDanger/blob/master/Screenshots/ChainSword.gif)
 ![](https://github.com/wushuartgaro/openGLGipsyDanger/blob/master/Screenshots/PlasmaCannon.gif)
 
